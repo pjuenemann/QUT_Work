@@ -54,7 +54,6 @@ function exampleHelperHectorQuadrotorKeyboardControl(handles)
                 turnV = 0;
                 throttle = 0;
         end
-        
         % Retrieve pose and laser data and send to plotting function
         % Wait for next laser reading
         laserMsg = receive(handles.laserSub,3);

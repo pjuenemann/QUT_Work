@@ -13,10 +13,12 @@ receive(handles.laserSub,3);
 
 handles.odomSub = rossubscriber('/ground_truth/state', 'BufferSize', 25);
 receive(handles.odomSub,3);
+handles.sonar = rossubscriber('/sonar_height', 'BufferSize', 5);
+receive(handles.sonar,3);
 
 handles.velPub = rospublisher('/cmd_vel');
 % exampleHelperHectorQuadrotorKeyboardControl(handles);
-target = [6, 0, 0.8];
+target = [6, 0, 0.7];
 obsData = hectorQuadrotorPathPlanning(handles, target);
 
 

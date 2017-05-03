@@ -3,6 +3,8 @@ function obsData = hectorQuadrotorPathPlanning(handles, target)
 %   Detailed explanation goes here
 plotobj = ExampleHelperTurtleBotVisualizer([-10,10,-10,10]);
 obsData = zeros(1,2);
+originTarget = target;
+lastPositions = zeros(10,3);
 % keyObj = ExampleHelperTurtleBotKeyInput();
 
 % disp('Keyboard Control: ');
@@ -36,33 +38,35 @@ while sqrt(sum((pose([1:3]) - target).^2)) > 0.1 %&& reply~='q'
     laserdata = readLaserData(laserMsg);
     pose = readPose(odomMsg);
     
-    
-%     th = pose(3)-pi/2;
-% 
-%     dist = [];
-%     dataWorld = [];
-%     for i = 1:size(laserdata,1)
-%         % Compute the world-frame location of laser points
-%         data = laserdata(i,:);
-%         dataWorld = data*[cos(th) sin(th);-sin(th) cos(th)] ...
-%             + repmat(pose(1:2),[numel(data(:,1)),1]);
-%         dist = [dist; norm(abs(dataWorld - pose([1 2])))];
-%     end
-%     minDist = min(dist)
-%     data = dataWorld((find(dist==minDist)),:)
-%     obs=zeros(1,2);
-%     obs(1) = pose(1) + cos(pose(4))*data(1);
-%     obs(2) = pose(2) + sin(pose(4))*data(2);
-%     obsData = [obsData; obs];
+    sonar_height = receive(handles.sonar,3)
 
-
+    a_gain = 0.4;
+    gain = 0.4;
     [minDist, data] = findObstacle(laserMsg, pose);
     data = [data(1,:) pose(3)];
     % Publish velocities to the robot
-    u = 0.4 * hectorQuadrotorComputePotentialField(target,...
+    lastPositions = circshift(lastPositions,1);
+    lastPositions(1,:) = pose([1:3]);
+    v = sqrt(sum((pose([1:3]) - target).^2));
+    if v > 1 && sqrt(sum(std(lastPositions).^2)) < 0.075  % abs(sum(F)) < 1
+        target(3) = target(3) + 0.5; % * v;
+    else
+        target = originTarget;
+    end
+    u = hectorQuadrotorComputePotentialField(target,...
         pose([1:3]), data, minDist);
-    forwardX = u(1);
-    forwardY = u(2);
+
+    a = 0;
+%     if abs(a) >= 1 
+%         a_gain = 1/a;
+%     end
+
+    theta = atan2(u(2), u(1)) - pose(4);
+    if abs(theta) > -0.1 && abs(theta) < 0.1
+        a = norm(u(1), u(2)); % u(1);
+    end
+    forwardX = a_gain * a;
+    forwardY = gain * theta; % u(2);
     if (pose(3) <= 0.5)
         forwardZ = 0.2;
     else

@@ -10,7 +10,8 @@ if isempty(velMsg)
 end
 
     velMsg.Linear.X = vLinX;
-    velMsg.Linear.Y = vLinY;
+    %velMsg.Linear.Y = vLinY;
+    velMsg.Angular.Z = vLinY;
     velMsg.Linear.Z = vLinZ;
     send(velPub,velMsg);
 end
