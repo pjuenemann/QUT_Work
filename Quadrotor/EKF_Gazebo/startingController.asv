@@ -13,7 +13,7 @@ dt = 1/100;
 
 t = [0:0.1:t_end];
 x = 5*sin(0.8*t);
-y = sin(0.4*t); 
+y = 0*t;
 z = 3*sin(0.4*t)+5;
 theta = 0*t;
 
@@ -87,32 +87,16 @@ y_sim = simout(:,3);
 z_sim = simout(:,4);
 
 subplot(3,2,1);
-plot(t_sim, x_sim, t, x);
-xlabel('t / s');
-ylabel('X Position / m');
-
+plot(t_sim, x_sim);
 subplot(3,2,2);
-plot(t_sim, y_sim, t, y);
-xlabel('t / s');
-ylabel('Y Position / m');
-
+plot(t_sim, x_sim);
 subplot(3,2,3);
-plot(t_sim, z_sim, t, z);
-xlabel('t / s');
-ylabel('Z Position / m');
-
+plot(t_sim, x_sim);
 subplot(3,2,4);
-plot(t_sim, t_sim*0);
-xlabel('t / s');
-ylabel('Theta Position / Grad');
-
+plot(t_sim, x_sim);
 subplot(3,2,[5,6]);
 plot3(x_sim, y_sim, z_sim, 'r');
 hold on;
 subplot(3,2,[5,6]);
 plot3(x, y, z, 'b');
-axis([-5 5 -1.5 1.5 0 10]);
-xlabel('X Position / m');
-ylabel('Y Position / m');
-zlabel('Z Position / m');
-legend('EKF', 'Reference');
+axis([-5 10 10 10]);
