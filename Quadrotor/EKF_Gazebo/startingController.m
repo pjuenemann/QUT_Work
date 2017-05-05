@@ -7,7 +7,7 @@ clc;
 % rosinit(ipaddress_vm, 'NodeHost', ipaddress_host)
 
 open_system('DroneController');
-t_end = 60;
+t_end = 10;
 Ts = 1/100; %0.05;
 dt = 1/100;
 
@@ -29,8 +29,8 @@ k1 = a;
 k2 = a;
 k3 = a;
 k4 = a;
-k5 = 10;
-k6 = 10;
+k5 = a;
+k6 = a;
 k7 = a;
 k8 = a;
 k9 = a;
@@ -41,13 +41,13 @@ k12 = a;
 p = 10;
 kp1 = p;
 kp2 = p;
-kp3 = 100;
+kp3 = p;
 kp4 = p;
 
-d = 10;
+d = 0.01;
 kd1 = d;
 kd2 = d;
-kd3 = 200;
+kd3 = d;
 kd4 = d;
 
 processNoiseCovariance = eye(12,12)*0.5;
