@@ -1,0 +1,70 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<body>
+<script src="resources/eml_report_loadable_data.js"></script>
+<div class="dead">
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="1,1" id="srcline1"> 1</a></span><span class="line">function posePub = hectorQuadrotorPathPlanningSimulinkFunction(odomMsg, laserMsg, target)</span></span>
+<span class="srcline"><span class="lineno"><a href="1,2" id="srcline2"> 2</a></span><span class="line"><span class="comment">%UNTITLED2 Summary of this function goes here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,3" id="srcline3"> 3</a></span><span class="line"><span class="comment">%   Detailed explanation goes here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,4" id="srcline4"> 4</a></span><span class="line">posePub = target;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,5" id="srcline5"> 5</a></span><span class="line">target = target([1:3]);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,6" id="srcline6"> 6</a></span><span class="line">originTarget = target;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,7" id="srcline7"> 7</a></span><span class="line">lastPositions = zeros(10,3);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,8" id="srcline8"> 8</a></span><span class="line">pose = readPose(odomMsg);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,9" id="srcline9"> 9</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,10" id="srcline10">10</a></span><span class="line">if sqrt(sum((pose([1:3]) - target).^2)) &gt; 0.1</span></span>
+<span class="srcline"><span class="lineno"><a href="1,11" id="srcline11">11</a></span><span class="line">    [minDist, data] = findObstacle(laserMsg, pose);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,12" id="srcline12">12</a></span><span class="line">    data = [data(1,:) pose(3)];</span></span>
+<span class="srcline"><span class="lineno"><a href="1,13" id="srcline13">13</a></span><span class="line">    lastPositions = circshift(lastPositions,1);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,14" id="srcline14">14</a></span><span class="line">    lastPositions(1,:) = pose([1:3]);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,15" id="srcline15">15</a></span><span class="line">    v = sqrt(sum((pose([1:3]) - target).^2));</span></span>
+<span class="srcline"><span class="lineno"><a href="1,16" id="srcline16">16</a></span><span class="line">    if v &gt; 1 &amp;&amp; sqrt(sum(std(lastPositions).^2)) &lt; 0.075  <span class="comment">% abs(sum(F)) &lt; 1</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,17" id="srcline17">17</a></span><span class="line">        target(3) = target(3) + 0.5; <span class="comment">% * v;</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,18" id="srcline18">18</a></span><span class="line">    else</span></span>
+<span class="srcline"><span class="lineno"><a href="1,19" id="srcline19">19</a></span><span class="line">        target = originTarget;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,20" id="srcline20">20</a></span><span class="line">    end</span></span>
+<span class="srcline"><span class="lineno"><a href="1,21" id="srcline21">21</a></span><span class="line">    u = hectorQuadrotorComputePotentialField(target,...</span></span>
+<span class="srcline"><span class="lineno"><a href="1,22" id="srcline22">22</a></span><span class="line">        pose([1:3]), data, minDist);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,23" id="srcline23">23</a></span><span class="line">    posePub = [pose([1:3]) + u, 0];</span></span>
+<span class="srcline"><span class="lineno"><a href="1,24" id="srcline24">24</a></span><span class="line">end</span></span>
+<span class="srcline"><span class="lineno"><a href="1,25" id="srcline25">25</a></span><span class="line">end</span></span>
+<span class="srcline"><span class="lineno"><a href="1,26" id="srcline26">26</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,27" id="srcline27">27</a></span><span class="line">function [minDist, dataWorld] = findObstacle(obj, pose)</span></span>
+<span class="srcline"><span class="lineno"><a href="1,28" id="srcline28">28</a></span><span class="line">defaults.RangeLimits = [0.5, obj.RangeMax];</span></span>
+<span class="srcline"><span class="lineno"><a href="1,29" id="srcline29">29</a></span><span class="line">R = obj.Ranges;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,30" id="srcline30">30</a></span><span class="line">validIdx = isfinite(R) &amp; R &gt;= defaults.RangeLimits(1) &amp; R &lt;= defaults.RangeLimits(2);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,31" id="srcline31">31</a></span><span class="line">R = R(validIdx);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,32" id="srcline32">32</a></span><span class="line">minDist = min(R);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,33" id="srcline33">33</a></span><span class="line">validIdx = find(R==minDist);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,34" id="srcline34">34</a></span><span class="line">angles = [obj.AngleMin : obj.AngleIncrement : obj.AngleMax];</span></span>
+<span class="srcline"><span class="lineno"><a href="1,35" id="srcline35">35</a></span><span class="line">cartAngles = angles(validIdx);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,36" id="srcline36">36</a></span><span class="line">x = cos(cartAngles) .* R(validIdx,1);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,37" id="srcline37">37</a></span><span class="line">y = sin(cartAngles) .* R(validIdx,1);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,38" id="srcline38">38</a></span><span class="line">cart = double([x,y]) * [0 1; 1 0];</span></span>
+<span class="srcline"><span class="lineno"><a href="1,39" id="srcline39">39</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,40" id="srcline40">40</a></span><span class="line">th = pose(4)-pi/2;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,41" id="srcline41">41</a></span><span class="line">dataWorld = cart*[cos(th) sin(th);-sin(th) cos(th)] ...</span></span>
+<span class="srcline"><span class="lineno"><a href="1,42" id="srcline42">42</a></span><span class="line">    + repmat(pose(1:2),[numel(cart(:,1)),1]);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,43" id="srcline43">43</a></span><span class="line">end</span></span>
+</pre>
+</div>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="1,44" id="srcline44">44</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,45" id="srcline45">45</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S45T1U361">pose</span> = readPose(<span class="var type1" id="S46T2U364">odomMsg</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="1,46" id="srcline46">46</a></span><span class="line"><span class="comment">%readPose Extract the robot odometry reading as [x y theta] vector</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,47" id="srcline47">47</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,48" id="srcline48">48</a></span><span class="line"><span class="comment">% Extract the x, y, and theta coordinates</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,49" id="srcline49">49</a></span><span class="line"><span class="mxinfo " id="T11:U3"><span class="var type1" id="S47T11U367">poseMsg</span> = <span class="mxinfo " id="T11:U5"><span class="mxinfo " id="T9:U6"><span class="var type1" id="S46T2U370">odomMsg</span>.Pose</span>.Pose</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,50" id="srcline50">50</a></span><span class="line"><span class="mxinfo " id="T8:U8"><span class="var type1" id="S48T8U375">xpos</span> = <span class="mxinfo " id="T8:U10"><span class="mxinfo " id="T12:U11"><span class="var type1" id="S47T11U378">poseMsg</span>.Position</span>.X</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,51" id="srcline51">51</a></span><span class="line"><span class="mxinfo " id="T8:U13"><span class="var type1" id="S49T8U383">ypos</span> = <span class="mxinfo " id="T8:U15"><span class="mxinfo " id="T12:U16"><span class="var type1" id="S47T11U386">poseMsg</span>.Position</span>.Y</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,52" id="srcline52">52</a></span><span class="line"><span class="mxinfo " id="T8:U18"><span class="var type1" id="S50T8U391">zpos</span> = <span class="mxinfo " id="T8:U20"><span class="mxinfo " id="T12:U21"><span class="var type1" id="S47T11U394">poseMsg</span>.Position</span>.Z</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,53" id="srcline53">53</a></span><span class="line"><span class="mxinfo " id="T13:U23"><span class="var type1" id="S51T13U399">quat</span> = <span class="mxinfo " id="T13:U25"><span class="var type1" id="S47T11U401">poseMsg</span>.Orientation</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,54" id="srcline54">54</a></span><span class="line"><span class="mxinfo " id="T20:U27"><span class="var type1" id="S52T20U405">angles</span> = <span class="mxinfo " id="T20:U29">quat2eul(<span class="mxinfo " id="T1:U30">[<span class="mxinfo " id="T8:U31"><span class="var type1" id="S51T13U411">quat</span>.W</span> <span class="mxinfo " id="T8:U33"><span class="var type1" id="S51T13U414">quat</span>.X</span> <span class="mxinfo " id="T8:U35"><span class="var type1" id="S51T13U417">quat</span>.Y</span> <span class="mxinfo " id="T8:U37"><span class="var type1" id="S51T13U420">quat</span>.Z</span>]</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,55" id="srcline55">55</a></span><span class="line"><span class="mxinfo " id="T8:U39"><span class="var type1" id="S54T8U424">theta</span> = <span class="mxinfo " id="T8:U41"><span class="var type1" id="S52T20U426">angles</span>(<span class="mxinfo " id="T25:U43">1</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,56" id="srcline56">56</a></span><span class="line"><span class="mxinfo " id="T1:U44"><span class="var type1" id="S45T1U430">pose</span> = <span class="mxinfo " id="T1:U46">[<span class="var type1" id="S48T8U433">xpos</span>, <span class="var type1" id="S49T8U434">ypos</span>, <span class="var type1" id="S50T8U435">zpos</span>, <span class="var type1" id="S54T8U436">theta</span>]</span></span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,57" id="srcline57">57</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,58" id="srcline58">58</a></span><span class="line"><span class="keyword">end</span></span></span>
+</pre>
+</body>
+</html>

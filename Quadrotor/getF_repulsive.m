@@ -15,7 +15,7 @@ function [ F_rep ] = getF_repulsive( k_rep, p0, q, q_obs, minDist)
 if minDist <= p0
     F_rep = k_rep*(1/minDist - 1/p0)*(1/minDist^2)*((q - q_obs)/minDist);
 else
-    F_rep = [0 0 0];
+    F_rep = [0 0];
 end
 
 end

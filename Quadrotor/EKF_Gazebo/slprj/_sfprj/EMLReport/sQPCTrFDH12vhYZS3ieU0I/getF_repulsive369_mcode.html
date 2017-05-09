@@ -1,0 +1,30 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<body>
+<script src="resources/eml_report_loadable_data.js"></script>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="89,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">function</span> [ <span class="var type1" id="S2T97U3">F_rep</span> ] = getF_repulsive( <span class="var type2" id="S3T8V1U6">k_rep</span>, <span class="var type2" id="S4T8V2U7">p0</span>, <span class="var type1" id="S5T20U8">q</span>, <span class="var type1" id="S6T20U9">q_obs</span>, <span class="var type1" id="S7T18U10">minDist</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="89,2" id="srcline2"> 2</a></span><span class="line"><span class="comment">%UNTITLED3 Summary of this function goes here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,3" id="srcline3"> 3</a></span><span class="line"><span class="comment">%   Detailed explanation goes here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,4" id="srcline4"> 4</a></span><span class="line"><span class="comment">% a = inf; % minimale Distanz</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,5" id="srcline5"> 5</a></span><span class="line"><span class="comment">% for i = 1:size(obX1, 1)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,6" id="srcline6"> 6</a></span><span class="line"><span class="comment">%     for j = 1:size(obX1, 2)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,7" id="srcline7"> 7</a></span><span class="line"><span class="comment">%         obstacle = [obX1(i,j) obY1(i,j) h(1,i)];</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,8" id="srcline8"> 8</a></span><span class="line"><span class="comment">%         b = norm(obstacle - q);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,9" id="srcline9"> 9</a></span><span class="line"><span class="comment">%         if b &lt; a</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,10" id="srcline10">10</a></span><span class="line"><span class="comment">%             a = b;</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,11" id="srcline11">11</a></span><span class="line"><span class="comment">%             q_obs = obstacle; % Pose mit minimaler Distanz</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,12" id="srcline12">12</a></span><span class="line"><span class="comment">%         end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,13" id="srcline13">13</a></span><span class="line"><span class="comment">%     end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,14" id="srcline14">14</a></span><span class="line"><span class="comment">% end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,15" id="srcline15">15</a></span><span class="line"><span class="keyword">if</span> <span class="mxinfo " id="T22:U7"><span class="var type1" id="S7T18U14">minDist</span> &lt;= <span class="var type1" id="S4T8U15">p0</span></span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,16" id="srcline16">16</a></span><span class="line">    <span class="mxinfo " id="T97:U10"><span class="var type1" id="S2T97U18">F_rep</span> = <span class="mxinfo " id="T97:U12"><span class="mxinfo " id="T18:U13"><span class="mxinfo " id="T18:U14"><span class="var type1" id="S3T8U22">k_rep</span>*(<span class="mxinfo " id="T18:U16"><span class="mxinfo " id="T18:U17"><span class="mxinfo " id="T8:U18">1</span>/<span class="var type1" id="S7T18U27">minDist</span></span> - <span class="mxinfo " id="T8:U20"><span class="mxinfo " id="T8:U21">1</span>/<span class="var type1" id="S4T8U30">p0</span></span></span>)</span>*(<span class="mxinfo " id="T18:U23"><span class="mxinfo " id="T8:U24">1</span>/<span class="mxinfo " id="T18:U25"><span class="var type1" id="S7T18U35">minDist</span>^2</span></span>)</span>*(<span class="mxinfo " id="T97:U27">(<span class="mxinfo " id="T20:U28"><span class="var type1" id="S5T20U41">q</span> - <span class="var type1" id="S6T20U42">q_obs</span></span>)/<span class="var type1" id="S7T18U43">minDist</span></span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="89,17" id="srcline17">17</a></span><span class="line"><span class="keyword">else</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,18" id="srcline18">18</a></span><span class="line">    <span class="mxinfo " id="T97:U32"><span class="var type1" id="S2T97U47"><span class="message error" id="M6F369C">F_rep</span></span></span> = double(<span class="mxinfo " id="T20:U33">[<span class="mxinfo " id="T8:U34">0</span> <span class="mxinfo " id="T8:U35">0</span> <span class="mxinfo " id="T8:U36">0</span>]</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="89,19" id="srcline19">19</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,20" id="srcline20">20</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="89,21" id="srcline21">21</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="89,22" id="srcline22">22</a></span><span class="line"></span></span>
+</pre>
+</body>
+</html>

@@ -6,14 +6,16 @@ clc;
 % ipaddress_host = '192.168.56.1';
 % rosinit(ipaddress_vm, 'NodeHost', ipaddress_host)
 
-open_system('DroneController');
-t_end = 30;
+open_system('DroneControllerCollisionAvoidance');
+% open_system('DroneController');
+t_end = 10;
 Ts = 1/100; %0.05;
 dt = 1/100;
+g = 9.81;
 
 t = [0:0.1:t_end];
 x = 5*sin(0.8*t);
-y = 0*t;
+y = sin(0.4*t); 
 z = 3*sin(0.4*t)+5;
 theta = 0*t;
 
@@ -80,23 +82,41 @@ H_Drone(3,9) = 1;
 H_Drone(4,10) = 1;
 H_Drone(5,11) = 1;
 
-sim('DroneController');
+sim('DroneControllerCollisionAvoidance');
+% sim('DroneController');
 t_sim = simout(:,1);
 x_sim = simout(:,2);
 y_sim = simout(:,3);
 z_sim = simout(:,4);
 
 subplot(3,2,1);
-plot(t_sim, x_sim);
+plot(t_sim, x_sim, t, x);
+xlabel('t / s');
+ylabel('X Position / m');
+
 subplot(3,2,2);
-plot(t_sim, x_sim);
+plot(t_sim, y_sim, t, y);
+xlabel('t / s');
+ylabel('Y Position / m');
+
 subplot(3,2,3);
-plot(t_sim, x_sim);
+plot(t_sim, z_sim, t, z);
+xlabel('t / s');
+ylabel('Z Position / m');
+
 subplot(3,2,4);
-plot(t_sim, x_sim);
+plot(t_sim, t_sim*0);
+xlabel('t / s');
+ylabel('Theta Position / Grad');
+
 subplot(3,2,[5,6]);
 plot3(x_sim, y_sim, z_sim, 'r');
 hold on;
 subplot(3,2,[5,6]);
 plot3(x, y, z, 'b');
-axis([-5 10 10 10]);
+axis([-5 5 -1.5 1.5 0 10]);
+xlabel('X Position / m');
+ylabel('Y Position / m');
+zlabel('Z Position / m');
+legend('EKF', 'Reference');
+grid on;

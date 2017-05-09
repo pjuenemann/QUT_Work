@@ -1,0 +1,22 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<body>
+<script src="resources/eml_report_loadable_data.js"></script>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="87,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">function</span> <span class="var type0" id="S2T0U3">u</span> = hectorQuadrotorComputePotentialField( <span class="var type1" id="S3T20U6">target</span> , <span class="var type1" id="S4T20U7">pose</span>, <span class="var type1" id="S5T20U8">pose_obs</span>, <span class="var type1" id="S6T18U9">minDist</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="87,2" id="srcline2"> 2</a></span><span class="line"><span class="comment">%UNTITLED2 Summary of this function goes here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="87,3" id="srcline3"> 3</a></span><span class="line"><span class="comment">%   Detailed explanation goes here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="87,4" id="srcline4"> 4</a></span><span class="line"><span class="mxinfo " id="T8:U5"><span class="var type1" id="S7T8U12">d</span> = <span class="mxinfo " id="T8:U7">0.1</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,5" id="srcline5"> 5</a></span><span class="line"><span class="mxinfo " id="T8:U8"><span class="var type1" id="S8T8U16">p0</span> = <span class="mxinfo " id="T8:U10">5</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,6" id="srcline6"> 6</a></span><span class="line"><span class="mxinfo " id="T8:U11"><span class="var type1" id="S9T8U20">k_att</span> = <span class="mxinfo " id="T8:U13">1</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,7" id="srcline7"> 7</a></span><span class="line"><span class="mxinfo " id="T8:U14"><span class="var type1" id="S10T8U24">k_rep</span> = <span class="mxinfo " id="T8:U16">-5</span></span>; <span class="comment">% -0.5;</span></span></span>
+<span class="srcline"><span class="lineno"><a href="87,8" id="srcline8"> 8</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="87,9" id="srcline9"> 9</a></span><span class="line"><span class="mxinfo " id="T20:U17"><span class="var type1" id="S11T20U29">F1</span> = <span class="mxinfo " id="T20:U19"><span class="fcn" id="F366N3:B31">getF_attractiv</span>(<span class="var type1" id="S9T8U32">k_att</span>, <span class="var type1" id="S4T20U33">pose</span>, <span class="var type1" id="S3T20U34">target</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,10" id="srcline10">10</a></span><span class="line"><span class="var type0" id="S13T0U37">F2</span> = <span class="message error" id="M3F365C"><span class="fcn" id="F369N4:B39">getF_repulsive</span>(<span class="var type1" id="S10T8U40">k_rep</span>, <span class="var type1" id="S8T8U41">p0</span>, <span class="var type1" id="S4T20U42">pose</span>, <span class="var type1" id="S5T20U43">pose_obs</span>, <span class="var type1" id="S6T18U44">minDist</span>)</span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,11" id="srcline11">11</a></span><span class="line"><span class="var type0" id="S15T0U47">F</span> = <span class="var type1" id="S11T20U49">F1</span> - <span class="var type0" id="S13T0U50"><span class="message error" id="M4F365C">F2</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,12" id="srcline12">12</a></span><span class="line"><span class="var type0" id="S2T0U53">u</span> = <span class="var type1" id="S7T8U55">d</span> * <span class="var type0" id="S15T0U56"><span class="message error" id="M5F365C">F</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="87,13" id="srcline13">13</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="87,14" id="srcline14">14</a></span><span class="line"></span></span>
+</pre>
+</body>
+</html>
