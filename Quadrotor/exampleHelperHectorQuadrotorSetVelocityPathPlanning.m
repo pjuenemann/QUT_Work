@@ -1,4 +1,4 @@
-function exampleHelperQuadrotorSetVelocityPathPlanning(velPub, vLinX, vLinY, vLinZ)
+function exampleHelperQuadrotorSetVelocityPathPlanning(velPub, vLinX, vLinY, vLinZ, vAngZ)
 %exampleHelperTurtleBotSetVelocity Sets linear and angular velocity of Turtlebot
 
 %   Copyright 2015 The MathWorks, Inc.
@@ -11,7 +11,7 @@ end
 
     velMsg.Linear.X = vLinX;
     velMsg.Linear.Y = vLinY;
-    %velMsg.Angular.Z = vLinY;
     velMsg.Linear.Z = vLinZ;
+    velMsg.Angular.Z = vAngZ;
     send(velPub,velMsg);
 end

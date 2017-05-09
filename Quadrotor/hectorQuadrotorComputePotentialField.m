@@ -1,8 +1,8 @@
 function u = hectorQuadrotorComputePotentialField( target , pose, pose_obs, dist)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-d = 0.2;
-p0 = 5;
+d = 0.1;
+p0 = 1;
 k_att = 1;
 k_rep = -5; % -0.5;
 
