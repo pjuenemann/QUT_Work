@@ -1,10 +1,10 @@
 function u = hectorQuadrotorComputePotentialField( target , pose, pose_obs, dist)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-d = 0.1;
-p0 = 1;
-k_att = 1;
-k_rep = -5; % -0.5;
+d = 0.2;
+p0 = 2.5;
+k_att = 5;
+k_rep = 10; % -0.5;
 
 F1 = getF_attractiv(k_att, pose, target);
 F2 = [0 0];

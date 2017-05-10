@@ -20,7 +20,7 @@ receive(handles.sonar,3);
 
 handles.velPub = rospublisher('/cmd_vel');
 % exampleHelperHectorQuadrotorKeyboardControl(handles);
-target = [4, 0, 0.7];
+target = [6, 0, 0.7];
 obsData = hectorQuadrotorPathPlanning(handles, target, B, A);
 
 
